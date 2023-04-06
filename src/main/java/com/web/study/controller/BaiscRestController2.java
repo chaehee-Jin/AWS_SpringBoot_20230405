@@ -34,5 +34,6 @@ public class BaiscRestController2 {
 	public ResponseEntity<? extends ResponseDto2> add(@RequestBody BasicTestDto2 basicTestDto2){
 
 	return ResponseEntity.created(null).body(DataResponseDto2.of(basicTestDto2));
+	
 }
 }
