@@ -6,11 +6,11 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class ResponseDto {
-   private final boolean success;
-   private final int code;
-   private final String message;
-   
-   public static ResponseDto of(boolean success, int code, String message){
-      return new ResponseDto(success, code, message);
-   }
+	private final boolean success;
+	private final int code;
+	private final String message;
+	
+	public static ResponseDto of(boolean success, int code, String message) {
+		return new ResponseDto(success, code, message);
+	}
 }
