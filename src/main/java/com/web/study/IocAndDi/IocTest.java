@@ -1,0 +1,21 @@
+package com.web.study.IocAndDi;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component
+public class IocTest {
+
+	@Qualifier("t1") //이것은 Autowired가 있어야지 사용이 가능하다
+	@Autowired
+	private Test test;
+
+//	public IocTest(Test test) {
+//		this.test = test;
+//	}
+	public void run() {
+		test.printTest();
+		System.out.println("IocTest 출력");
+	}
+}
