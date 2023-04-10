@@ -29,7 +29,7 @@ public class LecturerController {
 
 	//강사전체 조회
 	@GetMapping("/lecturers")
-	public ResponseEntity<ResponseDto> getLectures() {
+	public ResponseEntity<? extends ResponseDto> getLectures() {
 
 		return ResponseEntity.ok().body(DataResponseDto.of(lecturerService.getLecturerAll()));
 	}

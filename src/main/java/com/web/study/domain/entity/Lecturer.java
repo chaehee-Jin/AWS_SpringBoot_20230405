@@ -22,8 +22,8 @@ public class Lecturer {
 		return LecturerRespDto.builder()
 				.id(id)
 				.name(name).
-				birthDate(birth_date).
-				build();
+				birthDate(birth_date)
+				.build();
 	}
 
 }
