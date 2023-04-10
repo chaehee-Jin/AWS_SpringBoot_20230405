@@ -24,7 +24,7 @@
  				select
  						id,
  						name,
- 						birth_date
+ 						birth_date 
  				from
 						lecturer_mst 		
 				where
