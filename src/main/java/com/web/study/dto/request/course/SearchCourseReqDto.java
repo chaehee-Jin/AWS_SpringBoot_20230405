@@ -15,6 +15,7 @@ import lombok.ToString;
 public class SearchCourseReqDto {
 	@Min(value = 1)
 	@Max(value = 3)
+	//int라서 아무것도 넣지않아도 0부터 시작 
 	private int type;
 	
 	@NotBlank(message="검색 내용을 입력해주세요")
