@@ -6,16 +6,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class IocTest2 {
-
+	
 	@Qualifier("testC")
 	@Autowired
 	private Test test;
-
+	
 //	public IocTest(Test test) {
 //		this.test = test;
 //	}
+	
 	public void run() {
 		test.printTest();
-		System.out.println("IocTest2 출력");
+		System.out.println("IoCTest2 출력!");
 	}
+	
+	
 }

@@ -7,8 +7,6 @@ import com.web.study.domain.entity.Student;
 import lombok.Setter;
 import lombok.ToString;
 
-
-
 @Setter
 @ToString
 public class StudentReqDto {
@@ -17,10 +15,16 @@ public class StudentReqDto {
 	
 	public Student toEntity() {
 		return Student.builder()
-				.name(name)
-				.birth_date(birthDate)
+				.sdm_name(name)
+				.sdm_birth(birthDate)
 				.build();
-		
 	}
-
 }
+
+
+
+
+
+
+
+

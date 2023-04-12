@@ -10,5 +10,4 @@ public interface StudentService {
 	public void registeStudent(StudentReqDto studentReqDto);
 	public List<StudentRespDto> getStudentAll();
 	public StudentRespDto findStudentById(int id);
-
 }

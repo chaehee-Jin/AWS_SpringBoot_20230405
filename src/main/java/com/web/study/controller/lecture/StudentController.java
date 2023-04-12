@@ -17,31 +17,37 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class StudentController {
-
+	
 	private final StudentService studentService;
-
-	// @RequestBody => 클라이언트 ->서버 데이터 전송
-	// JSON의 형태 -> 객체로 들어옴
-
+	
+	// @RequestBody => 클라이언트 -> 서버 데이터 전송(JSON)
+	// JSON의 형태 -> 객체
+	
 	@PostMapping("/student")
 	public ResponseEntity<? extends ResponseDto> registeStudent(@RequestBody StudentReqDto studentReqDto) {
-
+		
 		studentService.registeStudent(studentReqDto);
-
+		
 		return ResponseEntity.ok().body(ResponseDto.ofDefault());
-
 	}
+	
 	@GetMapping("/students")
-	public ResponseEntity<? extends ResponseDto> getStudents(){
+	public ResponseEntity<? extends ResponseDto> getStudentAll() {
 		return ResponseEntity.ok().body(DataResponseDto.of(studentService.getStudentAll()));
-		
 	}
+	
 	@GetMapping("/student/{id}")
-	public ResponseEntity<? extends ResponseDto> getStudentById(@PathVariable int id){
+	public ResponseEntity<? extends ResponseDto> findStudentById(@PathVariable int id) {
 		return ResponseEntity.ok().body(DataResponseDto.of(studentService.findStudentById(id)));
-		
 	}
-	
-	
-
 }
+
+
+
+
+
+
+
+
+
+
