@@ -28,11 +28,13 @@ public class InstructorController {
 		return ResponseEntity.ok().body(ResponseDto.ofDefault());
 	}
 	
+	//강사전체조회
 	@GetMapping("/instructors")
 	public ResponseEntity<? extends ResponseDto> getInstructors() {
 		return ResponseEntity.ok().body(DataResponseDto.of(instructorService.getInstructorAll()));
 	}
 	
+	//강사 아이디로 선택한 아이디만 찾기
 	@GetMapping("/instructor/{id}")
 	public ResponseEntity<? extends ResponseDto> getInstructorById(@PathVariable int id) {
 		return ResponseEntity.ok().body(DataResponseDto.of(instructorService.findInstructorById(id)));
