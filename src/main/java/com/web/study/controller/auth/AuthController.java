@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.study.dto.ResponseDto;
+import com.web.study.dto.request.auth.LoginReqDto;
 import com.web.study.dto.request.auth.RegisteUserReqDto;
 import com.web.study.service.AuthService;
 
@@ -23,5 +24,13 @@ public class AuthController {
 		authService.registeUser(registeUserReqDto);
 		return ResponseEntity.ok().body(ResponseDto.ofDefault());
 
+	}
+	@PostMapping("auth/login")
+	public ResponseEntity<? extends ResponseDto> login(@RequestBody LoginReqDto loginReqDto){
+		
+		authService.login(loginReqDto);
+		
+		
+		return ResponseEntity.ok().body(ResponseDto.ofDefault());
 	}
 }
