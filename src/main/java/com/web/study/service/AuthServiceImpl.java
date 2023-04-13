@@ -17,6 +17,7 @@ import com.web.study.dto.request.auth.RegisteUserReqDto;
 import com.web.study.dto.response.auth.JwtTokenRespDto;
 import com.web.study.exception.CustomException;
 import com.web.study.repository.UserRepository;
+import com.web.study.security.jwt.JwtTokenProvider;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +27,7 @@ public class AuthServiceImpl implements AuthService {
 
 	private final UserRepository userRepository;
 	private final AuthenticationManagerBuilder authenticationManagerBuilder;
+	private final JwtTokenProvider jwtTokenProvider;
 
 	@Override
 	public void registeUser(RegisteUserReqDto registeUserReqDto) {
@@ -69,7 +71,7 @@ public class AuthServiceImpl implements AuthService {
 		// authentication 이게 실행되면 정상 로그인 
 		Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 		
-		return null;
+		return jwtTokenProvider.createToken(authentication);
 	}
 
 }

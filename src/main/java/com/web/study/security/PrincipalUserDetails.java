@@ -9,8 +9,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Builder;
+import lombok.Getter;
 
 @Builder
+@Getter
 //데이터 베이스들의 정보를 다시 한번 PrincipalUserDetails 으로 변환 
 public class PrincipalUserDetails  implements UserDetails{
 	
@@ -32,7 +34,7 @@ public class PrincipalUserDetails  implements UserDetails{
 			authorities.add(new SimpleGrantedAuthority(role));
 		});
 		
-		return null;
+		return authorities;
 	}
 
 	@Override
