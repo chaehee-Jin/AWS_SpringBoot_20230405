@@ -12,5 +12,5 @@ public interface UserRepository {
 	
 	public int saveUser(User user);
 	public int addAuthorities(List<Authority> authorities);
-
+	public User findUserByUsername(String username);
 }

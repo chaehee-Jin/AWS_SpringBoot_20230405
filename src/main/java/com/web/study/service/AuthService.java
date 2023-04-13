@@ -6,6 +6,10 @@ public interface AuthService {
 	
 	public void registeUser(RegisteUserReqDto registeUserReqDto);
 	
+	public void duplicatedUsername(RegisteUserReqDto registeUserReqDto); //중복검사
+
+	
+	
 	
 	
 
