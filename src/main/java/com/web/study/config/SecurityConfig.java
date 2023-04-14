@@ -9,6 +9,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.web.study.security.jwt.JwtAuthenticationEntryPoint;
 import com.web.study.security.jwt.JwtAuthenticationFilter;
 import com.web.study.security.jwt.JwtTokenProvider;
 
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private final JwtTokenProvider jwtTokenProvider;
+	private final JwtAuthenticationEntryPoint authenticationEntryPoint;
 
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -40,7 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.anyRequest()
 		.authenticated()
 		.and()
-		.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+		.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
 		//UsernamePasswordAuthenticationFilter.class 이것은 고정 )
+		.exceptionHandling()
+		.authenticationEntryPoint(authenticationEntryPoint); //401은 인증되지 않았음, 403은 권한이 없음 
 		}
 }

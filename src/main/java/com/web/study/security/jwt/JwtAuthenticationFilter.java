@@ -30,7 +30,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 
 		boolean validationFlag = jwtTokenProvider.validateToken(token);
 
-		if (validationFlag) {
+		if ( validationFlag) {
 			Authentication authentication = jwtTokenProvider.getAuthentication(token);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 		}
