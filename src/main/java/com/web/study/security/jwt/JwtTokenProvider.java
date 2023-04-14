@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -116,11 +117,9 @@ public class JwtTokenProvider {
 			authorities.add(new SimpleGrantedAuthority(role));
 		});
 		
-		
+		UserDetails userDetails = new User(claims.getSubject(), "", authorities);
+		return  new UsernamePasswordAuthenticationToken(userDetails, "", authorities);
 			
-		
-
-		return null;
 
 	}
 	private Claims parseClaims(String accessToken) {
