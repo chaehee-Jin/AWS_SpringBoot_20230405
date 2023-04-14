@@ -50,12 +50,14 @@ public class PrincipalUserDetails  implements UserDetails{
 		return authorities;
 	}
 
+	// getpassword, getusername은 검증하는 작업, 패쓰워드와 암호화된 패스워드를 비교
 	@Override
 	public String getPassword() {
 		
 		return password;
 	}
 
+	
 	@Override
 	public String getUsername() {
 	

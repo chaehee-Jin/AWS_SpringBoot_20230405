@@ -60,14 +60,20 @@ public class JwtTokenProvider {
 		long now = (new Date()).getTime();
 
 		// 1000 == 1초, 탈취당할 위험이 있어서 길게 시간을 주지 않음
-		Date tokenExpriesDate = new Date(now + (1000 * 60 * 30)); // 토큰 만료 시간
+		Date tokenExpriesDate = new Date(now + (1000 * 60 * 30)); // 토큰 만료 시간, 현재로부터 30분 뒤 
 
+		// 매개변수로 받은 곳 안에 userdetails가 들어있고 이것을 다운캐스팅, 다운캐스팅해야 안에 들어있는 객체들을 사용가능
 		PrincipalUserDetails userDetails = (PrincipalUserDetails) authentication.getPrincipal();
 
-		String accessToken = Jwts.builder().setSubject(authentication.getName())
-				.claim("userId", userDetails.getUserId()).claim("auth", authorities).setExpiration(tokenExpriesDate)
-				.signWith(key, SignatureAlgorithm.HS256).compact();
+		//jwt 토큰 생성 
+		String accessToken = Jwts.builder()
+				.setSubject(authentication.getName())
+				.claim("userId", userDetails.getUserId())
+				.claim("auth", authorities).setExpiration(tokenExpriesDate)
+				.signWith(key, SignatureAlgorithm.HS256) // 암호화
+				.compact();
 
+		// 이것을 return 해주면 controller가 받음 
 		return JwtTokenRespDto.builder().grantType("Bearer").accessToken(accessToken).build();
 
 	}
@@ -75,7 +81,7 @@ public class JwtTokenProvider {
 	public boolean validateToken(String token) {
 		try {
 			// 자바에서 쓸수 있게끔
-			Jwts.parserBuilder().setSigningKey(key) // 라이브러리,
+			Jwts.parserBuilder().setSigningKey(key) // 라이브러리
 					.build().parseClaimsJws(token); // 이 토큰이 문제가 생기면 예외를 처리를 해주어야함
 			return true;
 		} catch (SecurityException | MalformedJwtException e) {
@@ -103,13 +109,16 @@ public class JwtTokenProvider {
 	}
 
 	public Authentication getAuthentication(String accessToken) {
+		// claims를 통째로 가지고 옴 
 		Claims claims = parseClaims(accessToken);
+		// 인증을 하기 위해서 필요한 정보들만 가지고 옴 
 		Object roles = claims.get("auth");
 		
 		if(roles == null) {
 			//예외를 던져버림, 권한은 무조건 있어야함 
 			throw new CustomException("권한 정보가 없는 토큰입니다");
 		}
+		
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		String[] rolesArray  = roles.toString().split(",");
 		Arrays.asList(rolesArray).forEach(role -> {
@@ -124,12 +133,12 @@ public class JwtTokenProvider {
 	}
 	private Claims parseClaims(String accessToken) {
 		try {
-			//바디를 리턴 해줌 
+			//바디를 리턴 해줌 ,header, body, ? 중 바디를 담당 
 			return Jwts.parserBuilder()
 					.setSigningKey(key)
 					.build()
 					.parseClaimsJws(accessToken)
-					.getBody();
+					.getBody(); 
 		} catch(ExpiredJwtException e) {
 			return e.getClaims();
 			

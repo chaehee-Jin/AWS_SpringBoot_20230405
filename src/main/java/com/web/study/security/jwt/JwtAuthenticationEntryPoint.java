@@ -30,6 +30,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 		PrintWriter out = response.getWriter();
 		ObjectMapper responseJson = new ObjectMapper();
 		
+		//401에러 
 		out.println(responseJson.writeValueAsString(ErrorResponseDto.of(HttpStatus.UNAUTHORIZED, authException)));
 		
 	}
