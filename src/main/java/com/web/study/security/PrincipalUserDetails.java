@@ -13,10 +13,19 @@ import lombok.Getter;
 
 @Builder
 @Getter
-//데이터 베이스들의 정보를 다시 한번 PrincipalUserDetails 으로 변환 
+
+
+/*
+ * 데이터 베이스들의 정보를 다시 한번 PrincipalUserDetails 으로 변환 
+PrincipalUserDetails이것을 get하면 interface라서 그냥 못씀, 다운캐스팅 해야함 -> 다운캐스팅하면 이안에 들어있는 정보들 사용가능
+ jwt안에는 builder가 들어있다, subject안에는 getname이 들어가 있음 
+ *  get name = PrincipalUser의 username
+ */
 public class PrincipalUserDetails  implements UserDetails{
 	
 
+	
+	
 	private static final long serialVersionUID = 1L;
 	
 	//필수적으로 들어가야하는 정보들 
@@ -25,7 +34,11 @@ public class PrincipalUserDetails  implements UserDetails{
 	private String password;
 	private List<String> roles;
 	
-
+/*
+ * GrantedAuthorit 는 인터페이스 형식이고 이것에는 getthority가 들어있음 이것은 string 형식
+ * 이것이 return 될때 role로 return 
+ * 문자열을 들고와야하기 때문에 권한을 문자열로 주려고 반복을 계속 돌림 
+ */
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		
